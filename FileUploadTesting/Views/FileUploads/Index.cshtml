@@ -1,0 +1,53 @@
+﻿@model IEnumerable<FileUploadTesting.Models.FileUpload>
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<form action="" method="post" enctype="multipart/form-data">
+    <label for="file">Upload File:</label><input type="file" name="file" id="file" />
+    <input type="submit" />
+    @if (TempData["Success"] != null)
+    {
+        <div class="success">
+            <p>@TempData["Success"].ToString()</p>
+        </div>
+    }
+  
+</form>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.length)*@
+         @* @Html.ActionLink(item.Path,null)*@
+            <a href="@Url.Content("~/uploads/" + System.IO.Path.GetFileName(item.FileName))">
+                @Html.DisplayFor(modelItem => item.FileName)
+            </a>  
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
